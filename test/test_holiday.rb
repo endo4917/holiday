@@ -37,6 +37,7 @@ class TestHoliday < MiniTest::Unit::TestCase
     end
 
     it "is true on [1,2],[7,3],[9,3],[10,2] mondays" do
+      holiday?(2014,1,13).must_equal true
       holiday?(2014,7,21).must_equal true
     end
 

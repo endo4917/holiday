@@ -9,13 +9,13 @@ end
 
 def holiday?(y,m,d)
   t = Time.local(y,m,d)
-  return true if t.wday == 0 || t.wday == 6
+  return true if t.wday == 0 || t.wday == 6 || (m == 1 && d < 4)
   vernal, autumn = equinox(y)
-  return true if m == 1 && d < 4
-  fixed = [[2,11],[3,vernal],[4,29],[5,3],[5,4],[5,5],[9,autumn],[11,3],[11,23],[12,23]]
-  return true if fixed.include?([m,d])
-  return true if fixed.include?([m,d-1]) && t.wday == 1
+  fixed = [[2,11],[3,vernal],[4,29],[5,3],[5,4],[5,5],
+           [9,autumn],[11,3],[11,23],[12,23]]
+  return true if fixed.include?([m,d]) ||
+                 (fixed.include?([m,d-1]) && t.wday == 1)
   return true if m == 5 && d == 6 && t.wday < 4
-  return true if ((m == 2 || m == 10) && (d > 7 && d < 15) ||
-                  (m == 7 || m == 9) && (d > 14 && d < 22)) && t.wday == 1
+  return true if ((m == 1 || m == 10) && ((d-1) / 7 == 1) ||
+                  (m == 7 || m == 9) && ((d-1) / 7 == 2)) && t.wday == 1
 end

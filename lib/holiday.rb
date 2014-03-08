@@ -16,6 +16,7 @@ def holiday?(y,m,d)
   return true if fixed.include?([m,d]) ||
                  (fixed.include?([m,d-1]) && t.wday == 1)
   return true if m == 5 && d == 6 && t.wday < 4
-  return true if ((m == 1 || m == 10) && ((d-1) / 7 == 1) ||
-                  (m == 7 || m == 9) && ((d-1) / 7 == 2)) && t.wday == 1
+  nth = (d - 1) / 7 + 1
+  return true if t.wday == 1 &&
+                 [[1,2],[7,3],[9,3],[10,2]].include?([m,nth])
 end
